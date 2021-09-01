@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<!-- 解决获取请求参数的乱码问题，可以使用SpringMVC提供的编码过滤器CharacterEncodingFilter，但是必须在web.xml中进行注册 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceRequestEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 1. 寫DispatcherServlet引入DispatcherServlet -->
+	<servlet>
+		<!-- 配置 dispatcherServlet SpringMVC的前端控制器 所有請求都會透過它處理分配 -->
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<!-- a. 自定義springMVC的名稱 -->
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/springMVC.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+		<!-- b. load-on-startup指的是在程式執行時會在第一時間就執行servlet的初始化，可讓客戶端在請求前就先做好準備 -->
+	</servlet>
+
+	<servlet-mapping>
+		<!--c. url-pattern "/"代表瀏覽器地址的簡稱如http://localhost:8080/ -->
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+
+
+</web-app>

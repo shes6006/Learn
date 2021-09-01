@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>User Info</title>
+</head>
+
+<body>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<h2>User Info</h2>
+	<form th:action="@{/testRequestBody}" method="post">
+		name:
+		<input type="text" name="name"><br>
+		password:
+		<input type="text" name="password"><br>
+		email:
+		<input type="text" name="email"><br>
+		phone:
+		<input type="text" name="name"><br><br>
+		<input type="submit" value="submit"><br>
+	</form>
+
+	<form th:action="@{/testRequestEntity}" method="post">
+		name:
+		<input type="text" name="name"><br>
+		password:
+		<input type="text" name="password"><br>
+		email:
+		<input type="text" name="email"><br>
+		phone:
+		<input type="text" name="name"><br><br>
+		<input type="submit" value="submit"><br>
+	</form>
+	<br>
+	<a th:href="@{/testResponseBody}">get String</a><br>
+	<a th:href="@{/returnBean}">get Bean</a>
+	<div id="app">
+		<a th:href="@{/testAjax}" @click="testAjax">testAjax</a><br>
+	</div>
+
+	<a th:href="@{/file}">下載</a>
+	<a th:href="@{/testInterceptor}">test Interceptor</a>
+
+
+	<script type="text/javascript">
+		var vue = new Vue({
+			el: "#app",
+			methods: {
+				testAjax: function (event) {
+					axios({
+						method: "post",
+						url: event.target.href,
+						params: {
+							username: "admin",
+							password: "123456"
+						}
+					}).then(function (response) {
+						alert(response.data);
+					});
+					event.preventDefault();
+				}
+			}
+		});
+	</script>
+	</script>
+</body>
+
+</html>
